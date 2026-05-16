@@ -27,7 +27,7 @@ def create_app(config_class=Config):
             r"/api/*": {
                 "origins": [
                     "http://localhost:3000",
-                    "https://task-flow-orpin.vercel.app"
+                      "https://task-flow-swart-two.vercel.app"
                 ]
             }
         },
