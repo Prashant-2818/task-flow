@@ -20,30 +20,48 @@ def create_app(config_class=Config):
     jwt.init_app(app)
     migrate.init_app(app, db)
 
+    # CORS configuration
     cors.init_app(
         app,
-        resources={r"/api/*": {"origins": "http://localhost:3000"}},
+        resources={
+            r"/api/*": {
+                "origins": [
+                    "http://localhost:3000",
+                    "https://task-flow-orpin.vercel.app"
+                ]
+            }
+        },
         supports_credentials=True
     )
 
-    # Import models to ensure they are known to SQLAlchemy
+    # Import models
     from models.user import User
     from models.project import Project, ProjectMember
     from models.task import Task
     from models.activity import ActivityLog
 
-    # Register Blueprints / Namespaces here
+    # Register routes
     from routes import blueprint as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix='/api')
 
+    # Root route
     @app.route('/')
     def index():
-        return jsonify({"message": "Welcome to Task Flow API"})
+        return jsonify({
+            "message": "Welcome to Task Flow API",
+            "status": "running"
+        })
 
     return app
 
 
+# Create global app instance for Gunicorn
 app = create_app()
 
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(
+        debug=True,
+        host='0.0.0.0',
+        port=5000
+    )
