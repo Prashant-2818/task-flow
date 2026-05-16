@@ -23,14 +23,7 @@ def create_app(config_class=Config):
     # CORS configuration
     cors.init_app(
         app,
-        resources={
-            r"/api/*": {
-                "origins": [
-                    "http://localhost:3000",
-                      "https://task-flow-swart-two.vercel.app"
-                ]
-            }
-        },
+        resources={r"/*": {"origins": "*"}},
         supports_credentials=True
     )
 
