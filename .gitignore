@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+
+# Python virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment files
+.env
+
+# Build folders
+dist/
+build/
+
+# Vite cache
+.vite/
+
+# SQLite database
+*.db
